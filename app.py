@@ -1,4 +1,3 @@
-"""App de conferências por pessoa. Execute: python -m streamlit run app.py"""
 import os
 from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
