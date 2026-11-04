@@ -27,24 +27,24 @@ GROUP BY P.Id, P.Name
 ORDER BY [CAIXAS] DESC, [Fracoes] DESC, P.Name;
 """)
 
-
 @st.cache_resource
 def obter_engine():
-    senha = os.environ.get("MSSQL_PASSWORD")
-    if not senha:
-        raise ValueError("Configure MSSQL_PASSWORD no ambiente do servidor e reinicie o app.")
     url = URL.create(
-        "mssql+pymssql",
-        username=os.environ.get("MSSQL_USER", "control-read"),
-        password=os.environ.get("MSSQL_PASSWORD", "Rd736$#@00kM"),
-        host=os.environ.get("MSSQL_HOST", "10.250.1.8"),
-        database=os.environ.get("MSSQL_DATABASE", "WMS_SAP"),
+        drivername="mssql+pymssql",
+        username=st.secrets["MSSQL_USER"],
+        password=st.secrets["MSSQL_PASSWORD"],
+        host=st.secrets["MSSQL_HOST"],
+        database=st.secrets["MSSQL_DATABASE"],
     )
+
     return create_engine(
         url,
         pool_pre_ping=True,
         hide_parameters=True,
-        connect_args={"login_timeout": 10, "timeout": 60},
+        connect_args={
+            "login_timeout": 10,
+            "timeout": 60,
+        },
     )
 
 
