@@ -1,0 +1,6 @@
+streamlit
+pandas
+SQLAlchemy
+pymssql
+jinja2
+tzdata
